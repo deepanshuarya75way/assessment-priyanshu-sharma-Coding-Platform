@@ -15,6 +15,7 @@ import {
   setActiveRightTab
 } from '../slices/currentProblemSlice';
 import ProblemDiscussion from '../components/Editor/ProblemDiscussion';
+import LivePreview from '../components/Editor/LivePreview';
 
 const langMap = {
   cpp: 'C++',
@@ -361,7 +362,14 @@ const ProblemPage = () => {
       {/* Right Panel */}
       <div className="w-1/2 flex flex-col">
         {/* Right Tabs */}
+
         <div className="tabs tabs-bordered bg-black/50 px-4 border-b border-purple-500/30">
+          <div className='tabs tabs-bordered bg-black/50 px-4 border-b border-purple-500'>
+            <button className={`tab ${
+              activeRightTab==="livePreview"
+              ? "tab-active text-purple-400":"text-gray-400"
+            } `} onClick={()=>handleRightTabChange("livePreview")}> Live Preview</button>
+          </div>
           <button
             className={`tab ${activeRightTab === 'code' ? 'tab-active text-purple-400' : 'text-gray-400'} hover:text-purple-300 text-xl`}
             onClick={() => handleRightTabChange('code')}
@@ -551,6 +559,11 @@ const ProblemPage = () => {
               )}
             </div>
           )}
+
+          {activeRightTab==="livePreview" && (
+            <div className='flex-1 min-h-0 overflow-hidden'><LivePreview/></div>
+          )}
+
         </div>
       </div>
     </div>
